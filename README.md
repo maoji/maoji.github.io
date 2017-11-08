@@ -9,10 +9,7 @@
     gem install jekyll bundler
   ```
 5. 在<https://rubygems.org/search?utf8=%E2%9C%93&query=jekyll-theme>上下载一个模板，本博客采用的是[minima](https://rubygems.org/gems/minima)模板
-6. 把模板解压到一个空文件夹，把gemfile里的`gemspec`删掉，并添加：
-  ```
-  gem 'github-pages', group: :jekyll_plugins
-  ```
+6. 把模板源代码解压到一个空文件夹，把gemfile里的`gemspec`一行删掉，并添加：`gem 'github-pages', group: :jekyll_plugins`
 7. 运行 `bundle install` 安装需要的依赖
 8. 运行 `bundle exec jekyll serve` 可开启一个本地服务器，访问 <http://127.0.0.1:4000/> 可查看效果。启动服务器时可能会提示 `seo` 错误，把 `head.html` 里面的 `<% seo %>` 删掉即可
 9. 上传到github后，浏览器里访问 <https://maoji.github.io> 可在线查看效果
