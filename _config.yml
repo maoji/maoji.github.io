@@ -28,7 +28,7 @@ exclude:
 
 lsi: false
 safe: true
-source: [your repo's top level directory]
+source: maoji/maoji.github.io
 incremental: false
 highlighter: rouge
 gist:
