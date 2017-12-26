@@ -28,7 +28,7 @@ export class XXXModule{
 
 ## 为什么要用 `forRoot` 和 `forChild` ？
 引入模块我们一般有3个方法:
-+ 直接导入
+#### 直接导入
 ```
 import { XXXModule } from 'xxx.module'
 
@@ -39,7 +39,7 @@ import { XXXModule } from 'xxx.module'
 })
 ```
 
-+ 如果`XXXModule`实现了`forRoot`方法，我们可以：
+#### 如果`XXXModule`实现了`forRoot`方法，我们可以：
 ```
 import { XXXModule } from 'xxx.module'
 
@@ -50,7 +50,7 @@ import { XXXModule } from 'xxx.module'
 })
 ```
 
-+ 如果`XXXModule`实现了`forChild`方法，我们可以：
+#### 如果`XXXModule`实现了`forChild`方法，我们可以：
 ```
 import { XXXModule } from 'xxx.module'
 
