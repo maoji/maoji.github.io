@@ -1,31 +1,5 @@
-<footer class="site-footer">
+{% include svg-icons.html %}
 
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li>
-            {{ site.title | escape }}
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          {% if site.github_username %}
-          <li>
-            {% include icon-github.html username=site.github_username %}
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>{{ site.state | escape }}</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+{% if site.footer-text %}
+<p>{{ site.footer-text }}</p>
+{% endif %}
