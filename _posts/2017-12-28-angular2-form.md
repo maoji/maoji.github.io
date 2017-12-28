@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: angular2 模板驱动型表单
