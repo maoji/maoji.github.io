@@ -15,7 +15,9 @@ tags:
   ...
 })
 ```
-###用FormControl控制表单元素###
+
+## 用FormControl控制表单元素 ##
+
 *login-form.component.html*
 
 ```
@@ -60,7 +62,9 @@ this.name.valueChanges.subscribe(() => {
       console.log(this.name);
 });
 ```
-###给FormControl添加验证器###
+
+## 给FormControl添加验证器 ##
+
 *password.validator.ts*
 ```
 export const PasswordValidator = (password?:RegExp): ValidatorFn => {
@@ -95,7 +99,8 @@ password:FormControl = new FormControl('', [Validators.required, PasswordValidat
 3. 自定义的验证器只需引用我们在模板驱动型表单中构造的验证器工厂函数(```PasswordValidator```)生成一个```ValidatorFn```对象的实例即可。
 4. ```FormControl```上包含了表单的验证信息，在模板中可以直接使用它。这里可看到，之前我们在模版驱动型表单中通过模板引用变量```#password="ngModel"```引用的```ngModel```实际就是一个```FormControl```实例。
 
-###给FormControl添加异步验证器###
+## 给FormControl添加异步验证器 ##
+
 *name.validator.ts*
 ```
 const userList = [
@@ -137,7 +142,8 @@ name:FormControl = new FormControl('jack', Validators.required, checkNameValidat
 1. ```FormControl```的第三个参数可以传入一个```AsyncValidatorFn```对象或者一个包含```AsyncValidatorFn```对象的数组。
 2. 异步验证器只需引用我们在模板驱动型表单中构造的验证器工厂函数(```checkNameValidator ```)生成一个```AsyncValidatorFn```对象的实例即可。
 
-###用FormGroup将表单元素组合起来###
+## 用FormGroup将表单元素组合起来 ##
+
 当表单变得复杂时，组件中的```FormControl```对象会很多，我们可以用```FormGroup```对其进行统一管理。
 *login-form.component.html*
 ```
@@ -190,7 +196,8 @@ export class LoginFormComponent {
 4. 在```FormGroup```上可以通过```info.get('name')```获取```FormControl```实例。
 5. 在```FormGroup```上可以通过```this.info.value```获取表单组的值。
 6. 在```FormGroup```上可以通过```this.info.setValue(newValue)```或```this.info.patchValue(newValue)```设置```FormGroup```的值，```setValue```是修改整个```FormGroup```的值，传入的值必须包含全部的属性，缺少任意一个属性控制台会报错，用```patchValue```时，可修改部分属性的值。
-7. ```FormGroup```内部可以嵌套```FormGroup```，如`Name`可能又包含`firstName`和`lastName`，此时我们可以构造嵌套的```FormGroup```。  
+7. ```FormGroup```内部可以嵌套```FormGroup```，如`Name`可能又包含`firstName`和`lastName`，此时我们可以构造嵌套的```FormGroup```。
+
  ```
 <div formGroupName="name">
     <input type="text" formControlName="first">
@@ -203,7 +210,9 @@ info:FormGroup = new FormGroup({
     })
 });
 ```
-###用FormBuilder简化FormGroup的构造###
+
+## 用FormBuilder简化FormGroup的构造 ##
+
 *login-form.component.ts*
 ```
 import { checkNameValidator } from '../validators/name.validator';
@@ -239,7 +248,8 @@ export class LoginFormComponent {
 2. 借助```FormBuilder```我们可以通过参数来构建表单组，参数的结构与使用`new`基本一致，就不需要重复的写```new FormGroup(...)```、```new FormControl(...)```了。
 
 
-###用FormArray处理动态表单###
+## 用FormArray处理动态表单 ##
+
 有时候我们可能需要动态表单，如一个用户可能有多个地址，```FormArray```可以帮助我们处理这种需求。
 *address.component.html*
 ```
@@ -321,7 +331,8 @@ export class AddressComponent{
 3. 可以通过```removeAt(index)```移除```FormArray```中指定位置的值。
 4. 这里是借助```FormBuilder.array```来构建```FormArray```，同样我们也可以使用```new FormArray([...])```来构建表单。
 
-###构建 form-error 组件来简化验证信息的展示###
+## 构建 form-error 组件来简化验证信息的展示 ##
+
 ![clipboard.png](/img/bVWXZ3)
 从上图可以看到表单里的错误信息的展示结构基本类似，我们需要通过```info.get('name')```获取到```FormControl```的实例，然后把```FormControl```上的验证信息来展示到页面上。当验证项较多时，书写修改都变得很繁琐。我们可以考虑将错误信息的展示提取成一个组件。
 假设组件需要两个参数：
@@ -340,7 +351,9 @@ export class AddressComponent{
     }
     ],
 ```
+
 组件代码：
+
 *form-error.component.html*
 
 ```
@@ -426,7 +439,7 @@ createForm() {
   }
 ```
 
-###构建 `form-widget` 组件来整合每一个表单项###
+## 构建 `form-widget` 组件来整合每一个表单项 ##
 
 ![clipboard.png](/img/bVWYaV)
 
@@ -438,6 +451,7 @@ createForm() {
 3. 由于`form-error`组件是`form-widget`组件的子组件，我们也需要能得到`errors`参数。
 
 组件代码：
+
 *form-widget.component.html*
 
 ```
@@ -545,7 +559,8 @@ export class FormWidgetComponent {
 上面调整后的模板已经简化了很多了，接下来我们考虑这样一个问题：
 现在我们的模板只支持`input`和`password`两种类型，怎么样让它支持更多类型呢？
 
-### 使用动态加载组件让form-widget支持更多的控件类型
+## 使用动态加载组件让form-widget支持更多的控件类型 ##
+
 在`form-widget`组件中，我们使用了`ngSwitch`指令和`ngSwitchCase`指令，根据配置项的`type`值来处理不同的控件类型，对于一些简单的控件，如：`select, checkbox, radio`等等，我们只需要添加几个`ngSwitchCase`匹配项就好了，这里很好的完成了我们的需求，但是有几个弊端：
 1. 我们难免会有一些复杂的控件，全部加到`form-widget`组件模板中会使模板变得臃肿。
 2. 每次扩展类型，我们都需要修改`form-widget`组件模板，这是很繁琐的一件事，多人合作开发时也很容易造成冲突。
@@ -554,7 +569,7 @@ export class FormWidgetComponent {
 是可以的，动态加载组件的详细的介绍可以参考[angular2文档][1]，[Angular 4.x 动态创建组件][2]。
 
 控件代码：
-####控件基类####
+### 控件基类 ###
 *widget.base.component.ts*
 
 ```
@@ -572,7 +587,7 @@ export class FormWidgetBaseComponent{
     options;
 }
 ```
-####密码控件####
+### 密码控件 ###
 *input.password.component.ts*
 
 ```
@@ -590,7 +605,7 @@ export class FormWidgetPassword extends FormWidgetBaseComponent{
     
 }
 ```
-####文本控件####
+### 文本控件 ###
 *input.text.component.ts*
 
 ```
@@ -608,7 +623,7 @@ export class FormWidgetText extends FormWidgetBaseComponent{
 
 }
 ```
-####更新后的form-widget组件####
+### 更新后的form-widget组件 ###
 *form-widget.component.ts*
 ```
 import { FormWidgetPassword } from './widgets/password/input.password.component';
@@ -688,12 +703,12 @@ export class FormWidgetComponent {
 ```
 <ng-template #widget></ng-template>
 ```
-####几点说明####
+### 几点说明 ###
 1. 在定义控件时，我们首先定义了一个`FormWidgetBaseComponent`基组件，里面包含了基础的配置项，我们可以使用组件继承来扩展不同的类型，在扩展的组件中就不需要重复定义配置项了，对于一些简单的模板，我们只需要继该组件，然后设置模板即可。关于组件的继承可参考[angular2文档][3]，[Angular 2 Component Inheritance][4]。
 2. 之前配置项中的`type`是`text,password`等值。采用动态加载组件的方法，我们需要将`type`类型改为我们所定义的组件，如：`FormWidgetText`，`FormWidgetPassword`等等。
 3. 扩展组件的时候，我们只需要实现好组件，然后将其加入到`entryComponents`即可。
 
-### 构建dynamic-form组件，通过配置项生成FormGroup，简化表单构建
+## 构建dynamic-form组件，通过配置项生成FormGroup，简化表单构建 ##
 将构建FormGroup的参数整合进配置项里能让我们根据一个配置项就能构建好表单，进一步简化表单的构建。
 
 我们需要一个转换函数，我们将它定义到一个服务里。
@@ -728,7 +743,9 @@ export class FormService {
     }
 }
 ```
-组件代码
+
+组件代码：
+
 *dynamic-form.component.ts*
 
 ```
@@ -807,7 +824,7 @@ login-form组件调用
 1. 在`dynamic-form`组件里我们通过`Output`暴露了一个提交事件的接口，如有需要可以通过这个方法暴露更多接口。
 自此我们的组件已经基本完成了，我们可以通过一个配置项很快捷的构建表单了。
 
-###小结###
+## 小结 ##
 1. 借助响应式表单，我们能将使用代码实现表单初始化，表单验证，获取表单值等等操作。我们可以用```FormControl```控制单个表单元素，用```FormGroup```将表单元素分组，用```FormArray```处理需要动态添加的表单。在模板中我们只需要展示表单和验证信息即可，从而实现模板和业务逻辑的分离。
 2. 通过```FormBuilder```，我们可以使用配置项来简化响应式表单的构造。
 3. 对于结构类似的表单，我们可以考虑构建动态表单组件，来避免重复的劳动，提升开发效率。

@@ -32,7 +32,7 @@ export class DataService {
 ```
 
 上面`DataService`就是一个普通的类，里面包含了一个可以生成`0-max`范围内随机数的方法。
-注意到类的开头用了`@Injectable`装饰器进行装饰。当该类不依赖于其它服务时，`@Injectable`不是必须的。当该服务依赖于其它服务时，`@Injectable`是必须的。
+注意到类的开头用了`@Injectable`装饰器进行装饰。当该服务不依赖于其它服务时，`@Injectable`不是必须的。当该服务依赖于其它服务时，`@Injectable`是必须的。
 
 我们给`DataService`增加了一个记录日志的服务`LoggerService`，此时`@Injectable`就不能省略了。通常情况下，不管服务是否依赖于其它服务，我们最好都用`@Injectable`进行装饰。
 ```
@@ -150,7 +150,7 @@ export class ProvideTestComponent implements OnInit {
 ```
 
 ### 3. useExisting
-`useExisting`是别名提供商，一般用来升级旧的服务。当一个项目中已经大量使用的服务需要升级到一个新的服务时，我们能想到的直接的办法就是将注册一个新的服务，然后将旧的服务完全替换掉。但这样很容易出错，而且大量改动已经稳定的代码很容易引出问题。`angular2`为我们提供了一种简便的方法，使用`useExisting`提供商。
+`useExisting`是别名提供商，一般用来升级旧的服务。当一个已经在项目中大量使用的服务需要升级到一个新的服务时，我们能想到的直接的办法就是注册一个新的服务，然后将旧的服务完全替换掉。但这样很容易出错，而且大量改动已经稳定的代码很容易引出问题。`angular2`为我们提供了一种简便的方法，使用`useExisting`提供商。
 
 假设我们需要将之前的`LoggerService`升级到`NewLoggerService`，我们可以这样做：
 

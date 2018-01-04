@@ -198,13 +198,16 @@ this.activatedRoute.snapshot.paramMap.keys();
 
 ## router-outlet
 路由的一个好处就是刷新后，能保持之前的界面。有时候，我们希望某一个打开的弹窗能在界面刷新后不消失，我们就需要用到二级路由了。二级路由允许我们创建一个或多个与当前路由平级的带名字的`router-outlet`，我们能往里面添加组件，也可随意移除。
+
 ### 创建步骤
-+ 在模板中添加`router-outlet`, 必须要添加`name`属性，一个模板中只允许有一个不带名字的`router-outlet`。
+1. 在模板中添加`router-outlet`, 必须要添加`name`属性，一个模板中只允许有一个不带名字的`router-outlet`。
+
 ```
 <router-outlet name="popup"></router-outlet>
 ```
 
-+ 在路由配置项中添加配置项，`path`为路由路径，`outlet`为在模板中指定的`router-outlet`名，`component`为弹出的组件。
+2. 在路由配置项中添加配置项，`path`为路由路径，`outlet`为在模板中指定的`router-outlet`名，`component`为弹出的组件。
+
 ```
 [
     ...
@@ -216,11 +219,14 @@ this.activatedRoute.snapshot.paramMap.keys();
     ...
 ]
 ```
-+ 跳转到`outlet`
+
+3. 跳转到`outlet`
+
 ```
 this.router.navigate([{ outlets: { popup: ['compose'] }}]);
 ```
-+ 关闭
+
+4. 关闭
 ```
 this.router.navigate([{ outlets: { popup: null }}]);
 ```
@@ -228,7 +234,9 @@ this.router.navigate([{ outlets: { popup: null }}]);
 ## Router, NavigationExtras, routerLink
 使用`Router`和`NavigationExtras`，我们可以用代码实现路由跳转。
 使用`routerLink`指令可以在模板中实现路由跳转。
-+ 跳转到指定url
+
+1. 跳转到指定url
+
 ```
 // router
 this.router.navigate(['/home']);
@@ -236,7 +244,8 @@ this.router.navigate(['/home']);
 <a routerLink="/home">Home</a>
 ```
 
-+ 添加必要参数
+2. 添加必要参数
+
 ```
 // router
 this.router.navigate(['/user/detail/1']);
@@ -244,7 +253,8 @@ this.router.navigate(['/user/detail/1']);
 <a routerLink="/user/detail/1">User</a>
 ```
 
-+ 添加可选参数
+3. 添加可选参数
+
 ```
 // router
 this.router.navigate(['/user/detail/1', {test:123}]);
@@ -252,7 +262,8 @@ this.router.navigate(['/user/detail/1', {test:123}]);
 <a [routerLink]="['/user/detail/1', {test:123}]">User</a>
 ```
 
-+ 弹出outlet
+4. 弹出outlet
+
 ```
 // router
 this.router.navigate(['/user/detail/1', {test:123}, { outlets: { ad: ['user-ad'] }}]);
@@ -260,7 +271,8 @@ this.router.navigate(['/user/detail/1', {test:123}, { outlets: { ad: ['user-ad']
 <a [routerLink]="['/user/detail/1', {test:123}, { outlets: { ad: ['user-ad'] }}]">User</a>
 ```
 
-+ 关闭outlet
+5. 关闭outlet
+
 ```
 // router
 this.router.navigate(['/user/detail/1', {test:123}, { outlets: { ad: null }}]);
@@ -268,7 +280,8 @@ this.router.navigate(['/user/detail/1', {test:123}, { outlets: { ad: null }}]);
 <a [routerLink]="['/user/detail/1', {test:123}, { outlets: { ad: null }}]">User</a>
 ```
 
-+ 相对路径
+6. 相对路径
+
 `routerLink`默认使用相对路由。`./`,`../`,`/`
 `Router`默认使用绝对路由。要使用相对路由，可设置：
 ```
@@ -278,7 +291,8 @@ this.router.navigate(['/user/detail/1', {test:123}, { outlets: { ad: null }}]);
 };
 ```
 
-+ 查询参数
+7. 查询参数
+
 ```
 // router
  let navigationExtras: NavigationExtras = {
@@ -310,6 +324,7 @@ this.router.navigate([`detail/${user.id}`], navigationExtras)
 将路由配置提取出来放到单独的模块，能精简主模块的配置项，方便我们对代码进行管理。
 路由模块应该是纯净的，不包含任何组件或服务的声明，仅仅负责路由的配置。
 路由模块引入的时候，应该放在主模块路由模块的前面，因为一般来说，通配符路由和空路由都是在主模块路由里面配置的，路由解析时是按引入模块的顺序解析的。如果主模块放在前面，会导致其他路由被覆盖。
+
 ```
 import { RouterModule,Route } from '@angular/router';
 import { NgModule } from '@angular/core';
